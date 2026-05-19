@@ -17,18 +17,19 @@ public class StudentDao extends Dao {
 	public Student get(String no) throws Exception {
 		// 学生インスタンスを初期化
 		Student student = new Student();
-		// DataBaseのConnectionを確立
+		// Connection確立
 		Connection connection = getConnection();
 		// PreparedStatement
 		PreparedStatement statement = null;
 		
 		try {
-			// PreparedStatementにSQL文をセット
+			// SQL文をセット
 			statement = connection.prepareStatement(
-				"select * from student where no = ?");
-			// PreparedStatementに学生番号をバインド(bind)
+				"select * from student where no = ?"
+			);
+			// 学生番号をバインド(bind)
 			statement.setString(1, no);
-			// PreparedStatementを実行
+			// 実行
 			ResultSet rSet = statement.executeQuery();
 			
 			// 学校Daoを初期化
@@ -80,7 +81,7 @@ public class StudentDao extends Dao {
 		// Listを初期化
 		List<Student> list = new ArrayList<>();
 		try {
-			// ResultSetを全権走査
+			// ResultSetを全件走査
 			while (rSet.next()) {
 				// 学生インスタンスを初期化
 				Student student = new Student();
@@ -106,9 +107,9 @@ public class StudentDao extends Dao {
 	) throws Exception {
 		// Listを初期化
 		List<Student> list = new ArrayList<>();
-		// Connectionを確立
+		// Connection確立
 		Connection connection = getConnection();
-		//　PreparedStatement
+		// PreparedStatement
 		PreparedStatement statement = null;
 		// ResultSet
 		ResultSet rSet = null;
@@ -124,16 +125,15 @@ public class StudentDao extends Dao {
 		}
 		
 		try {
-			// PreparedStatementにSQL文をセット
+			// SQL文をセット
 			statement = connection.prepareStatement(
-				baseSql + condition + conditionIsAttend + order);
-			// PreparedStatementに学校コードをバインド(bind)
+				baseSql + condition + conditionIsAttend + order
+			);
+			// 学校コードと入学年度とクラス番号をバインド(bind)
 			statement.setString(1, school.getCd());
-			// PreparedStatementに入学年度をバインド(bind)
 			statement.setInt(2, entYear);
-			// PreparedStatementにクラス番号をバインド(bind)
 			statement.setString(3, classNum);
-			// PreparedStatementを実行
+			// 実行
 			rSet = statement.executeQuery();
 			
 			// Listへの格納処理を実行
@@ -173,25 +173,26 @@ public class StudentDao extends Dao {
 		// ResultSet
 		ResultSet rSet = null;
 		// SQL文の条件
-		String condition = "and ent_year = ?";
+		String condition = " and ent_year = ?";
 		// SQL文のソート
-		String order = "order by no asc";
+		String order = " order by no asc";
 		// SQL文の在学フラグ条件
-		String conditionIsAttend = "";
+		String conditionIsAttend = " ";
 		// 在学フラグがtrueの場合
 		if (isAttend) {
-			conditionIsAttend = "and is_attend = true";
+			conditionIsAttend = " and is_attend = true";
 		}
 		
 		try {
-			// PreparedStatementにSQL文をセット
+			// SQL文をセット
 			statement = connection.prepareStatement(
-				baseSql + condition + conditionIsAttend + order);
-			// PreparedStatementに学校コードをバインド(bind)
+				baseSql + condition + conditionIsAttend + order
+			);
+			// 学校コードをバインド(bind)
 			statement.setString(1, school.getCd());
-			// PreparedStatementに入学年度をバインド(bind)
+			// 入学年度をバインド(bind)
 			statement.setInt(2, entYear);
-			// PreparedStatementを実行
+			// 実行
 			rSet = statement.executeQuery();
 			
 			// Listへの格納処理を実行
@@ -208,7 +209,7 @@ public class StudentDao extends Dao {
 				}
 			}
 			
-			// connectionを閉じる
+			// Connectionを閉じる
 			if (connection != null) {
 				try {
 					connection.close();
@@ -224,27 +225,29 @@ public class StudentDao extends Dao {
 	public List<Student> filter(School school, boolean isAttend) throws Exception {
 		// Listを初期化
 		List<Student> list = new ArrayList<>();
-		// Connectionを確立
+		// Connection確立
 		Connection connection = getConnection();
 		//　PreparedStatement
 		PreparedStatement statement = null;
 		// ResultSet
 		ResultSet rSet = null;
 		// SQL文のソート
-		String order = "order by no asc";
+		String order = " order by no asc";
 		// SQL文の在学フラグ条件
-		String conditionIsAttend = "";
+		String conditionIsAttend = " ";
 		// 在学フラグがtrueの場合
 		if (isAttend) {
-			conditionIsAttend = "and is_attend = true";
+			conditionIsAttend = " and is_attend = true";
 		}
 		
 		try {
-			// PreparedStatementにSQL文をセット
-			statement = connection.prepareStatement(baseSql + conditionIsAttend + order);
-			// PreparedStatementに学校コードをバインド(bind)
+			// SQL文をセット
+			statement = connection.prepareStatement(
+				baseSql + conditionIsAttend + order
+			);
+			// 学校コードをバインド(bind)
 			statement.setString(1, school.getCd());
-			// PreparedStatementを実行
+			// 実行
 			rSet = statement.executeQuery();
 			
 			// Listへの格納処理を実行
@@ -261,7 +264,7 @@ public class StudentDao extends Dao {
 				}
 			}
 			
-			// connectionを閉じる
+			// Connectionを閉じる
 			if (connection != null) {
 				try {
 					connection.close();
@@ -275,7 +278,7 @@ public class StudentDao extends Dao {
 	}
 	
 	public boolean save(Student student) throws Exception {
-		// Connectionを確立
+		// Connection確立
 		Connection connection = getConnection();
 		// PreparedStatement
 		PreparedStatement statement = null;
@@ -287,11 +290,12 @@ public class StudentDao extends Dao {
 			Student old = get(student.getNo());
 			if (old == null) {
 				// 学生番号が存在しなかった場合
-				// PreparedStatementにInsert文をセット
+				// Insert文をセット
 				statement = connection.prepareStatement(
 					"insert into student(no, name, ent_year, class_num, is_attend, school_cd)"
-					+ "values(?, ?, ?, ?, ?, ?)");
-				// PreparedStatementに値をバインド(bind)
+					+ "values(?, ?, ?, ?, ?, ?)"
+				);
+				// 値をバインド(bind)
 				statement.setString(1, student.getNo());
 				statement.setString(2, student.getName());
 				statement.setInt(3, student.getEntYear());
@@ -301,11 +305,12 @@ public class StudentDao extends Dao {
 				
 			} else {
 				// 学生番号が存在した場合
-				// PreparedStatementにUpdate文をセット
+				// Update文をセット
 				statement = connection.prepareStatement(
 					"update student set name = ?, ent_year = ?, class_num = ?,"
-					+ "is_attend = ? where no = ?");
-				// PreparedStatementに値をバインド(bind)
+					+ "is_attend = ? where no = ?"
+				);
+				// 値をバインド(bind)
 				statement.setString(1, student.getName());
 				statement.setInt(2, student.getEntYear());
 				statement.setString(3, student.getClassNum());
@@ -314,7 +319,7 @@ public class StudentDao extends Dao {
 				statement.setString(5, student.getNo());
 			}
 			
-			// PreparedStatementを実行
+			// 実行
 			count = statement.executeUpdate();
 			
 		} catch (Exception e) {
@@ -329,7 +334,7 @@ public class StudentDao extends Dao {
 				}
 			}
 			
-			// connectionを閉じる
+			// Connectionを閉じる
 			if (connection != null) {
 				try {
 					connection.close();
@@ -339,13 +344,6 @@ public class StudentDao extends Dao {
 			}
 		}
 		
-		if (count > 0) {
-			// 実行件数が1件以上ある場合
-			return true;
-			
-		}  else {
-			// 実行件数が０件の場合
-			return false;
-		}
+		return count > 0;
 	}
 }

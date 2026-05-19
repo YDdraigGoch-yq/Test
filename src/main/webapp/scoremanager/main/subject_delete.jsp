@@ -1,4 +1,5 @@
-d·<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- 科目情報削除 --%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core"%>
 
 
@@ -22,7 +23,7 @@ d·<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="
 				</p>
 				
 				<%-- フォーム --%>
-				<form action="SubjectDeleteDone.action" method="post">
+				<form action="SubjectDeleteExecute.action" method="post">
 					<input type="hidden" name="cd" value="${subject.cd}">
 					
 					<%-- 削除ボタン --%>
@@ -32,7 +33,7 @@ d·<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="
 					</button>
 					
 					<div style="margin-top:60px">
-						<%-- 科目管理一覧画面に遷移する --%>
+						<%-- 科目管理画面に遷移する --%>
 						<a href="SubjectList.action">
 							戻る
 						</a>

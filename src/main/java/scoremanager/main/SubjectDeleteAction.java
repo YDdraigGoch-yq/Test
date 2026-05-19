@@ -15,6 +15,8 @@ public class SubjectDeleteAction extends Action {
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
 		
+		// ロカール変数の宣言
+		String url = "";
 		// セッション取得
 		HttpSession session = req.getSession();
 		// ログインユーザー取得
@@ -29,11 +31,12 @@ public class SubjectDeleteAction extends Action {
 		// Bean
 		Subject subject = suDao.get(cd, teacher.getSchool());
 		
-		// Requestへセット
+		// リクエストへセット
 		req.setAttribute("subject", subject);
 		
 		// 科目情報削除画面へ
-		req.getRequestDispatcher("subject_delete.jsp")
-        	.forward(req, res); 
+		url = "subject_delete.jsp";
+		req.getRequestDispatcher(url)
+			.forward(req, res); 
 	}
 }

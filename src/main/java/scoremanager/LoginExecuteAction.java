@@ -18,26 +18,31 @@ public class LoginExecuteAction extends Action {
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
 
-		// ローカル変数の宣言 1
+		// ローカル変数の宣言
 		String url = "";
 		String id = "";
 		String password = "";
 		TeacherDao tDao = new TeacherDao();
 		Teacher teacher = null;
 
-		// リクエストパラメータ―の取得
-		id = req.getParameter("id");// 教員ID
-		password = req.getParameter("password");//パスワード
+		// パラメーターの取得
+		// 教員ID
+		id = req.getParameter("id");
+		// パスワード
+		password = req.getParameter("password");
 
 		// DBからデータ取得
-		teacher = tDao.login(id, password);//教員データ取得
+		// 教員データ取得
+		teacher = tDao.login(id, password);
 
 		// ビジネスロジック
 		// DBへデータ保存
 		// レスポンス値をセット
 		// フォワード
-		// 条件で手順4~7の内容が分岐
-		if (teacher != null) {// 認証成功の場合
+		
+		// 条件で手順の内容が分岐
+		// 認証成功の場合
+		if (teacher != null) {
 			// セッション情報を取得
 			HttpSession session = req.getSession(true);
 			// 認証済みフラグを立てる
@@ -45,7 +50,7 @@ public class LoginExecuteAction extends Action {
 			// セッションにログイン情報を保存
 			session.setAttribute("user", teacher);
 
-			// MenuActionへRedirect
+			// メニューへ
 			url = "main/Menu.action";
 			res.sendRedirect(url);
 			

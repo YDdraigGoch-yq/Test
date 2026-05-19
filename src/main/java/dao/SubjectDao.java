@@ -18,21 +18,20 @@ public class SubjectDao extends Dao {
 	public Subject get(String cd, School school) throws Exception {
 		// 科目インスタンスを初期化
 		Subject subject = new Subject();
-		// DataBaseのConnectionを確立
+		// Connection確立
 		Connection connection = getConnection();
 		// PreparedStatement
 		PreparedStatement statement = null;
 		
 		try {
-			// PreparedStatementにSQL文をセット
+			// SQL文をセット(準備)
 			statement = connection.prepareStatement(
 				"select * from subject where cd = ? and school_cd = ?"
 			);
-			
-			// PreparedStatementに科目コードと学校コードをバインド(bind)
+			// 科目コードと学校コードをバインド(bind)
 			statement.setString(1, cd);
 			statement.setString(2, school.getCd());
-			// PreparedStatementを実行
+			// 実行
 			ResultSet rSet = statement.executeQuery();
 			
 			if (rSet.next()) {
@@ -50,7 +49,6 @@ public class SubjectDao extends Dao {
 			
 		} catch (Exception e) {
 			throw e;
-			
 		} finally {
 			// PreparedStatementを閉じる
 			if (statement != null) {
@@ -74,16 +72,36 @@ public class SubjectDao extends Dao {
 		return subject;
 	}
 	
-	 // ResultSet → List
-	private List<Subject> postFilter(ResultSet rSet, School school) throws Exception {
+	// 科目一覧取得
+	public List<Subject> filter(School school) throws Exception {
 		// Listを初期化
 		List<Subject> list = new ArrayList<>();
+		// Connection確立
+		Connection connection = getConnection();
+		//　PreparedStatement
+		PreparedStatement statement = null;
+		// ResultSet
+		ResultSet rSet = null;
+		// SQL文のソート
+		String order = " order by cd asc";	
+		
 		try {
-			// ResultSetを全権走査
+			// SQL文をセット
+			statement = connection.prepareStatement(
+				baseSql + order
+			);
+			// 学校コードをバインド(bind)
+			statement.setString(1, school.getCd());
+			// 実行
+			rSet = statement.executeQuery();
+			
+			// ResultSet全件走査
 			while (rSet.next()) {
-				// 科目Instanceを初期化
+				
+				// 科目生成
 				Subject subject = new Subject();
-				// 科目Instanceに検索結果をセット
+				
+				// 検索結果をセット
 				subject.setCd(rSet.getString("cd"));
 				subject.setName(rSet.getString("name"));
 				subject.setSchool(school);
@@ -91,37 +109,6 @@ public class SubjectDao extends Dao {
 				// Listに追加
 				list.add(subject);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return list;
-	}
-	
-	// 科目一覧取得
-	public List<Subject> filter(School school) throws Exception {
-		// Listを初期化
-		List<Subject> list = new ArrayList<>();
-		// Connectionを確立
-		Connection connection = getConnection();
-		//　PreparedStatement
-		PreparedStatement statement = null;
-		// ResultSet
-		ResultSet rSet = null;
-		// SQL文のソート
-		String order = "order by cd asc";	
-		
-		try {
-			// PreparedStatementにSQL文をセット
-			statement = connection.prepareStatement(baseSql + order);
-			// PreparedStatementに学校コードをバインド(bind)
-			statement.setString(1, school.getCd());
-			// PreparedStatementを実行
-			rSet = statement.executeQuery();
-			
-			// Listへの格納処理を実行
-			list = postFilter(rSet, school);
-			
 		} catch (Exception e) {
 			throw e;
 			
@@ -135,7 +122,7 @@ public class SubjectDao extends Dao {
 				}
 			}
 			
-			// connectionを閉じる
+			// Connectionを閉じる
 			if (connection != null) {
 				try {
 					connection.close();
@@ -163,29 +150,29 @@ public class SubjectDao extends Dao {
 			
 			if (old == null) {
 				// 科目コードが存在しなかった場合
-				// PreparedStatementにInsert文をセット
+				// Insert文をセット
 				statement = connection.prepareStatement(
 					"insert into subject(cd, name, school_cd) values(?, ?, ?)"
 				);
-				// PreparedStatementに値をバインド(bind)
+				// 値をバインド(bind)
 				statement.setString(1, subject.getCd());
 				statement.setString(2, subject.getName());
 				statement.setString(3, subject.getSchool().getCd());
 			
 			} else {
 				// 科目コードが存在した場合
-				// PreparedStatementにUpdate文をセット
+				// Update文をセット
 				statement = connection.prepareStatement(
 					"update subject set name = ? where cd = ? and school_cd = ?"
 				);
-				// PreparedStatementに科目名をバインド(bind)
+				// 科目名をバインド(bind)
 				statement.setString(1, subject.getName());
 				// Update操作のWhere条件(在哪里进行"Update"操作)
 				statement.setString(2, subject.getCd());
 				statement.setString(3, subject.getSchool().getCd());
 			}
 			
-			// PreparedStatementを実行
+			// 実行
 			count = statement.executeUpdate();
 			
 		} catch (Exception e) {
@@ -216,7 +203,7 @@ public class SubjectDao extends Dao {
 	
 	// 削除機能(delete)
 	public boolean delete(Subject subject) throws Exception {
-		// Connectionを確立
+		// Connection確立
 		Connection connection = getConnection();
 		// PreparedStatement
 		PreparedStatement statement = null;
@@ -224,14 +211,15 @@ public class SubjectDao extends Dao {
 		int count = 0;
 		
 		try {
-			// PreparedStatementにSQL文をセット
+			// SQL文をセット
 			statement = connection.prepareStatement(
-				"delete from subject where cd = ? and school_cd = ?");
-			// PreparedStatementに値をバインド(bind)
+				"delete from subject where cd = ? and school_cd = ?"
+			);
+			// 値をバインド(bind)
 			statement.setString(1, subject.getCd());
 	        statement.setString(2, subject.getSchool().getCd());
 			
-			// PreparedStatementを実行
+			// 実行
 			count = statement.executeUpdate();
 			
 		} catch (Exception e) {

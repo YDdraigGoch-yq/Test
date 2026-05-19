@@ -10,7 +10,9 @@ public class LoginAction extends Action {
 	public void execute(
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
+		
 		// ローカル変数の宣言
+		String url = "";
 		// パラメーター取得
 		// DBからデータ取得
 		// ビジネスロジック
@@ -18,7 +20,8 @@ public class LoginAction extends Action {
 		// レスポンス値をセット
 		
 		// ログイン画面へ
-		req.getRequestDispatcher("login.jsp")
+		url = "login.jsp";
+		req.getRequestDispatcher(url)
 			.forward(req, res);
 	}
 }

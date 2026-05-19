@@ -13,6 +13,8 @@ public class SubjectUpdateAction extends Action {
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
 		
+		// ロカール変数の宣言
+		String url = "";
 		// セッション取得
 		HttpSession session = req.getSession();
 		Teacher teacher = (Teacher)session.getAttribute("user");
@@ -26,7 +28,7 @@ public class SubjectUpdateAction extends Action {
 		// 科目取得
 		Subject subject = suDao.get(cd, teacher.getSchool());
 		
-		// Requestへセット
+		// リクエストへセット
 		req.setAttribute("subject", subject);
 		
 		// エラーを初期値
@@ -36,7 +38,8 @@ public class SubjectUpdateAction extends Action {
 		);
 		
 		// 科目情報変更画面へ
-		req.getRequestDispatcher("subject_update.jsp")
+		url = "subject_update.jsp";
+		req.getRequestDispatcher(url)
 			.forward(req, res);
 	}
 }

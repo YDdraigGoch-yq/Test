@@ -8,30 +8,25 @@ import java.sql.SQLException;
 import bean.School;
 
 public class SchoolDao extends Dao {
-	/**
-	 * getメソッド 学校コードを指定して学校インスタンスを１件取得する
-	 *
-	 * @param cd:String
-	 *            学校コード
-	 * @return 学校クラスのインスタンス 存在しない場合はnull
-	 * @throws Exception
-	 */
+	
 	public School get(String cd) throws Exception {
 		// 学校インスタンスを初期化
 		School school = new School();
-		// データベースへのコネクションを確率
+		// Connection確立
 		Connection connection = getConnection();
-		// プリペアードステートメント
+		// PreparedStatement
 		PreparedStatement statement = null;
 
 		try {
-			// プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement("select * from school where cd = ?");
-			// プリペアードステートメントに学校コードをバインド
+			// SQL文をセット
+			statement = connection.prepareStatement(
+				"select * from school where cd = ?"
+			);
+			// 学校コードをバインド(bind)
 			statement.setString(1, cd);
-			// プリペアードステートメントを実行
+			// 実行
 			ResultSet rSet = statement.executeQuery();
-
+			
 			if (rSet.next()) {
 				// リザルトセットが存在する場合
 				// 学校インスタンスに学校コードと学校名をセット
@@ -45,7 +40,7 @@ public class SchoolDao extends Dao {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			// プリペアードステートメントを閉じる
+			// PreparedStatementを閉じる
 			if (statement != null) {
 				try {
 					statement.close();
@@ -53,7 +48,7 @@ public class SchoolDao extends Dao {
 					throw sqle;
 				}
 			}
-			// コネクションを閉じる
+			// Connectionを閉じる
 			if (connection != null) {
 				try {
 					connection.close();
@@ -62,6 +57,7 @@ public class SchoolDao extends Dao {
 				}
 			}
 		}
+		
 		return school;
 	}
 }

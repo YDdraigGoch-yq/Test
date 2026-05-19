@@ -22,17 +22,12 @@ public class StudentListAction extends Action {
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
 		
-		// Session
+		// セッション
 		HttpSession session = req.getSession();
 		Teacher teacher = (Teacher)session.getAttribute("user");
 		
-		// Loginチェック
-		if (teacher == null) {
-			res.sendRedirect("Login.action");
-			return;
-		}
-		
-		// Local変数の宣言
+		// ロカール変数の宣言
+		String url = "";
 		String entYearStr = "";
 		String classNum = "";	
 		String isAttendStr = "";
@@ -46,7 +41,7 @@ public class StudentListAction extends Action {
 		ClassNumDao cNumDao = new ClassNumDao();
 		Map<String, String> errors = new HashMap<>();
 		
-		// Parameter取得
+		// パラメーター取得
 		entYearStr = req.getParameter("f1");
 		classNum = req.getParameter("f2");
 		isAttendStr = req.getParameter("f3");
@@ -59,7 +54,7 @@ public class StudentListAction extends Action {
 			req.setAttribute("f3", isAttendStr);
 		}
 
-		// Business.logic
+		// ビジネスロジック
 		if (entYearStr != null) {
 			// 数値に変換
 			entYear = Integer.parseInt(entYearStr);
@@ -68,13 +63,13 @@ public class StudentListAction extends Action {
 		// Listを初期化
 		List<Integer> entYearSet = new ArrayList<>();
 		
-		// 10年前から1年後まで年をlistに追加（２０１１～２０２６）
-		for (int i = year - 15; i < year + 1; i++) {
+		// 10年前から1年後まで年をlistに追加(2016-2026)
+		for (int i = year - 10; i < year + 1; i++) {
 			entYearSet.add(i);
 		}
 		
-		// DBからdataを取得
-		// Login.userの学校コードをもとに、クラス番号の一覧を取得
+		// DBからデータを取得
+		// ログインユーザーの学校コードをもとに、クラス番号の一覧を取得
 		List<String> list = cNumDao.filter(teacher.getSchool());
 		
 		if (entYear != 0 && !classNum.equals("0")) {
@@ -97,19 +92,19 @@ public class StudentListAction extends Action {
 			students = sDao.filter(teacher.getSchool(), isAttend);
 		}
 		
-		// Response値をセット
-		// Requestに「入学年度」と「クラス番号」をセット
+		// レスポンス値をセット
+		// リクエストに「入学年度」と「クラス番号」をセット
 		req.setAttribute("f1", entYear);
 		req.setAttribute("f2", classNum);
 		
-		// Requestに学生リストをセット
+		// リクエストにセット
 		req.setAttribute("students", students);
-		// Requestにデータをセット
 		req.setAttribute("class_num_set", list);
 		req.setAttribute("ent_year_set", entYearSet);
 		
 		// 学生一覧画面へ
-		req.getRequestDispatcher("student_list.jsp")
+		url = "student_list.jsp";
+		req.getRequestDispatcher(url)
 			.forward(req, res);
 	}
 }

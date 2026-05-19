@@ -8,14 +8,7 @@ import java.sql.SQLException;
 import bean.Teacher;
 
 public class TeacherDao extends Dao {
-	/**
-	 * getメソッド 教員IDを指定して教員インスタンスを1件取得する
-	 *
-	 * @param id:String
-	 *            教員ID
-	 * @return 教員クラスのインスタンス 存在しない場合はnull
-	 * @throws Exception
-	 */
+	
 	public Teacher get(String id) throws Exception {
 		// 教員インスタンスを初期化
 		Teacher teacher = new Teacher();
@@ -25,11 +18,13 @@ public class TeacherDao extends Dao {
 		PreparedStatement statement = null;
 
 		try {
-			// プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement("select * from teacher where id=?");
-			// プリペアードステートメントに教員IDをバインド
+			// SQL文をセット
+			statement = connection.prepareStatement(
+				"select * from teacher where id=?"
+			);
+			// 教員IDをバインド
 			statement.setString(1, id);
-			// プリペアードステートメントを実行
+			// 実行
 			ResultSet resultSet = statement.executeQuery();
 
 			// 学校Daoを初期化
@@ -51,7 +46,7 @@ public class TeacherDao extends Dao {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			// プリペアードステートメントを閉じる
+			// PreparedStatementを閉じる
 			if (statement != null) {
 				try {
 					statement.close();
@@ -59,7 +54,7 @@ public class TeacherDao extends Dao {
 					throw sqle;
 				}
 			}
-			// コネクションを閉じる
+			// Connectionを閉じる
 			if (connection != null) {
 				try {
 					connection.close();
@@ -68,20 +63,10 @@ public class TeacherDao extends Dao {
 				}
 			}
 		}
-
+		
 		return teacher;
 	}
-
-	/**
-	 * loginメソッド 教員IDとパスワードで認証する
-	 *
-	 * @param id:String
-	 *            教員ID
-	 * @param password:String
-	 *            パスワード
-	 * @return 認証成功:教員クラスのインスタンス, 認証失敗:null
-	 * @throws Exception
-	 */
+	
 	public Teacher login(String id, String password) throws Exception {
 		// 教員クラスのインスタンスを取得
 		Teacher teacher = get(id);
@@ -89,6 +74,7 @@ public class TeacherDao extends Dao {
 		if (teacher == null || !teacher.getPassword().equals(password)) {
 			return null;
 		}
+		
 		return teacher;
 	}
 }

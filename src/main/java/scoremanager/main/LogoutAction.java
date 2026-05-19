@@ -9,25 +9,25 @@ public class LogoutAction extends Action {
 
 	@Override
 	public void execute(
-			HttpServletRequest req, HttpServletResponse res
+		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
 		
-		// Local変数の宣言 1
+		// ロカール変数の宣言
 		String url = "";
-		HttpSession session=req.getSession();
-
-		// Parameter取得 2
-		// DBからデータ取得 3
-		// Business.logic 4
+		HttpSession session = req.getSession();
+		
+		// パラメーター取得
+		// DBからデータ取得
+		// ビジネスロジック
 		if (session.getAttribute("user") != null) {
 			session.invalidate();
 		}
-
-		// DBへデータ保存 5
-		// Response値をセット 6
-		// logout.jspへforward 7
+		
+		// DBへデータ保存
+		// レスポンス値をセット
+		// ログアウト画面へ
 		url = "logout.jsp";
-		req.getRequestDispatcher(url).forward(req, res);
+		req.getRequestDispatcher(url)
+			.forward(req, res);
 	}
-
 }

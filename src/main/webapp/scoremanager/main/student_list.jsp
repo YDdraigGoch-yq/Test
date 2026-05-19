@@ -1,4 +1,4 @@
-<%-- 学生一覧.JSP --%>
+<%-- 学生一覧 --%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core"%>
 
@@ -10,11 +10,13 @@
 	
 	<c:param name="scripts"></c:param>
 	
-	<%-- 共通箇所（１～９） --%>
 	<c:param name="content">
 		<section class="me-4">
+		
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">
-				学生管理</h2>
+				学生管理
+			</h2>
+				
 			<div class="my-2 text-end px-4">
 				<a href="StudentCreate.action">新規登録</a>
 			</div>
@@ -34,6 +36,7 @@
 							</c:forEach>
 						</select>
 					</div>
+					
 					<div class="col-4">
 						<label class="form-label" for="student-f2-select">クラス</label>
 						<select class="form-select" id="student-f2-select" name="f2">
@@ -46,6 +49,7 @@
 							</c:forEach>
 						</select>
 					</div>
+					
 					<div class="col-2 form-check text-center">
 						<label class="form-check-label" for="student-f3-check">在学中
 						
@@ -55,6 +59,7 @@
 							<c:if test="${!empty f3}">checked</c:if>/>
 						</label>
 					</div>
+					
 					<div class="col-2 text-center">
 						<button class="btn btn-secondary" id="filter-button">
 							絞込み</button>
@@ -75,8 +80,8 @@
 							<th>クラス</th>
 							<th class="text-center">在学中</th>
 							<th></th>
-							<th></th>
 						</tr>
+						
 						<c:forEach var="student" items="${students}">
 							<tr>
 								<td>${student.entYear}</td>
@@ -90,13 +95,18 @@
 											〇
 										</c:when>
 										<c:otherwise>
-											✖
+											×
 										</c:otherwise>
 									</c:choose>
 								</td>
-								<td><a href="StudentUpdate.action?no=${student.no}">変更</a></td>
+								<td>
+									<a href="StudentUpdate.action?no=${student.no}">
+										変更
+									</a>
+								</td>
 							</tr>
 						</c:forEach>
+						
 					</table>
 				</c:when>
 				

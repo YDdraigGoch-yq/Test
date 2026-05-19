@@ -1,4 +1,4 @@
-<%-- 科目一覧.JSP --%>
+<%-- 科目情報登録 --%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core"%>
 
@@ -18,7 +18,7 @@
 			</h2>
 			
 			<%-- フォーム --%>
-			<form action="SubjectCreateDone.action" method="post">
+			<form action="SubjectCreateExecute.action" method="post">
 				<div class="mx-3">
 				
 					<%-- 科目コード --%>
@@ -26,14 +26,14 @@
 						<label class="form-label">
 							科目コード
 						</label>
-						<input type="text"
+						<input class="form-control"
+							   type="text"
 							   name="cd"
-							   class="form-control"
 							   placeholder="科目コードを入力してください"
 							   value="${cd}"
 							   required>
 							   
-						<%--　科目コードのエラーメッセージ --%>
+						<%-- 科目コードのエラーメッセージ --%>
 						<div class="text-warning mt-2">
 							${errors.get("cd")}
 						</div>
@@ -44,9 +44,9 @@
 						<label class="form-label">
 							科目名
 						</label>
-						<input type="text"
+						<input class="form-control"
+							   type="text"
 							   name="name"
-							   class="form-control"
 							   placeholder="科目名を入力してください"
 							   value="${name}"
 							   required>
@@ -59,7 +59,7 @@
 							登録
 						</button>
 						
-						<%-- 科目管理一覧画面に遷移する --%>
+						<%-- 科目管理画面に遷移する --%>
 						<div class="mt-3">
 							<a href="SubjectList.action">
 								戻る

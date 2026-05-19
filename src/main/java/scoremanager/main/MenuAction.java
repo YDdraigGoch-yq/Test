@@ -1,4 +1,4 @@
-	package scoremanager.main;
+package scoremanager.main;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -10,16 +10,19 @@ public class MenuAction extends Action {
 	public void execute(
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
-
-		// Local変数の宣言 1
-		// Request.parameterの取得 2
-		// DBからデータ取得 3
-		// Business.logic 4
-		// DBへデータ保存 5
-		// レスポンス値をセット 6
 		
-		// menu.jspへforward 7
-		req.getRequestDispatcher("menu.jsp")
+		// ロカール変数の宣言
+		String url = "";
+		
+		// パラメーターの取得
+		// DBからデータ取得
+		// ビジネスロジック
+		// DBへデータ保存
+		// レスポンス値をセット
+		
+		// メニュー画面へ
+		url = "menu.jsp";
+		req.getRequestDispatcher(url)
 			.forward(req, res);
 	}
 }

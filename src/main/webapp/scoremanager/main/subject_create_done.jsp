@@ -1,3 +1,4 @@
+<%-- 科目情報登録完了 --%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core"%>
 
@@ -28,7 +29,7 @@
 					戻る
 				</a>
 				
-				<%-- 科目管理一覧画面に遷移する --%>
+				<%-- 科目一覧画面に遷移する --%>
 				<a href="SubjectList.action">
 					科目一覧
 				</a>

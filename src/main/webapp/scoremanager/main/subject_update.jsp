@@ -1,4 +1,5 @@
-·<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- 科目情報変更 --%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core"%>
 
 
@@ -17,7 +18,7 @@
 			</h2>
 			
 			<%-- フォーム --%>
-			<form action="SubjectUpdateDone.action" method="post">
+			<form action="SubjectUpdateExecute.action" method="post">
 				<div class="mx-3">
 				
 					<%-- 科目コード --%>
@@ -33,7 +34,6 @@
 							   readonly>
 					</div>
 					
-					
 					<%-- 科目名 --%>
 					<div class="mb-3">
 						<label class="form-label">
@@ -46,14 +46,13 @@
 							   value="${subject.name}"
 							   required>
 							   
-						<%--　科目名のエラーメッセージ --%>
+						<%-- 科目名のエラーメッセージ --%>
 						<div class="text-warning mt-2">
 							${errors.get("name")}
 						</div>
 					</div>
 							
 					<div class="text-start">
-					
 						<%-- 変更ボタン --%>
 						<button type="submit" class="btn btn-primary">
 							変更
@@ -65,7 +64,6 @@
 								戻る
 							</a>
 						</div>
-						
 					</div>
 					
 				</div>

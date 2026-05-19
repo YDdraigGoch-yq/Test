@@ -11,13 +11,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import tool.Action;
 
-public class SubjectUpdateDoneAction extends Action {
+public class SubjectUpdateExecuteAction extends Action {
 
 	@Override
 	public void execute(
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
 		
+		// ロカール変数の宣言
+		String url = "";
 		// セッション取得
 		HttpSession session = req.getSession();
 		// ログインユーザー取得
@@ -29,7 +31,7 @@ public class SubjectUpdateDoneAction extends Action {
 		// エラーはHashMapに格納
 		Map<String, String> errors = new HashMap<>();
 		
-		// エラーメッセージ
+		// エラーがある場合
 		if (!errors.isEmpty()) {
 			Subject subject = new Subject();
 			subject.setCd(cd);
@@ -38,25 +40,29 @@ public class SubjectUpdateDoneAction extends Action {
 			req.setAttribute("subject", subject);
 			req.setAttribute("errors", errors);
 			
-			req.getRequestDispatcher("subject_update.jsp")
+			
+			// 科目情報変更画面へ
+			url = "subject_update.jsp";
+			req.getRequestDispatcher(url)
 				.forward(req, res);
 			
 			return;
 		}
 		
-		// Bean
+		// 科目インスタンス生成
 		Subject subject = new Subject();
 		subject.setCd(cd);
 		subject.setName(name);
 		subject.setSchool(teacher.getSchool());
 		
-		// 科目取得
+		// Dao
 		SubjectDao suDao = new SubjectDao();
 		// DBに保存
 		suDao.save(subject);
 			
 		// 科目情報変更完了画面へ
-		req.getRequestDispatcher("subject_update_done.jsp")
+		url = "subject_update_done.jsp";
+		req.getRequestDispatcher(url)
 			.forward(req, res);
 	}
 }

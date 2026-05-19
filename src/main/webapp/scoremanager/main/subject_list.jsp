@@ -1,4 +1,4 @@
-<%-- 科目一覧.JSP --%>
+<%-- 科目一覧 --%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core"%>
 
@@ -10,18 +10,17 @@
 	
 	<c:param name="scripts"></c:param>
 	
-	<%-- 共通箇所（１～９） --%>
 	<c:param name="content">
 		<section class="me-4">
+		
 			<h2 class="h3 mb-3 fw-bold bg-secondary bg-opacity-10 py-2 px-4">
-				科目管理一覧
+				科目管理
 			</h2>
 			
-			<%--　科目新規登録 --%>
+			<%-- 科目新規登録 --%>
 			<div class="my-2 text-end px-4">
 				<a href="SubjectCreate.action">新規登録</a>
 			</div>
-			
 			
 			<%-- 科目一覧 --%>
 			<c:choose>

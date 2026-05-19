@@ -1,6 +1,5 @@
 package scoremanager.main;
 
-
 import java.util.HashMap;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,18 +13,22 @@ public class SubjectCreateAction extends Action {
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
 
-	// エラーを初期化
-	req.setAttribute(
-		"errors",
-		new HashMap<String, String>()
-	);
-	
-	// 初期値をセット
-	req.setAttribute("cd", "");
-	req.setAttribute("name", "");
-	
-	// 科目情報登録画面へ
-	req.getRequestDispatcher("subject_create.jsp")
-    	.forward(req, res);
+		// ロカール変数の宣言
+		String url = "";
+		
+		// エラーを初期化
+		req.setAttribute(
+			"errors",
+			new HashMap<String, String>()
+		);
+		
+		// 初期値をセット
+		req.setAttribute("cd", "");
+		req.setAttribute("name", "");
+		
+		// 科目情報登録画面へ
+		url = "subject_create.jsp";
+		req.getRequestDispatcher(url)
+	    	.forward(req, res);
 	}
 }

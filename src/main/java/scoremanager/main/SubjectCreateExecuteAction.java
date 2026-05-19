@@ -9,17 +9,19 @@ import dao.SubjectDao;
 import jakarta.servlet.http.*;
 import tool.Action;
 
-public class SubjectCreateDoneAction extends Action {
+public class SubjectCreateExecuteAction extends Action {
 
 	@Override
 	public void execute(
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
 		
+		// ロカール変数の宣言
+		String url = "";
 		// セッション取得
 		HttpSession session = req.getSession();
 		// ログインユーザー取得
-		Teacher teacher = (Teacher)session.getAttribute("user");
+		Teacher teacher = (Teacher) session.getAttribute("user");
 		
 		// パラメーター取得
 		String cd = req.getParameter("cd");
@@ -56,8 +58,9 @@ public class SubjectCreateDoneAction extends Action {
 			req.setAttribute("cd", cd);
 			req.setAttribute("name", name);
 			
-			// 登録画面へ
-			req.getRequestDispatcher("subject_create.jsp")
+			// 科目情報登録画面へ
+			url = "subject_create.jsp";
+			req.getRequestDispatcher(url)
 				.forward(req, res);
 			
 			return;
@@ -72,8 +75,9 @@ public class SubjectCreateDoneAction extends Action {
 		// DBに保存
 		suDao.save(subject);
 		
-		// 科目登録完了画面へ
-		req.getRequestDispatcher("subject_create_done.jsp")
+		// 科目情報登録完了画面へ
+		url = "subject_create_done.jsp";
+		req.getRequestDispatcher(url)
 			.forward(req, res);
 	}
 }
