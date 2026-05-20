@@ -14,12 +14,12 @@
 		<section class="me-4">
 		
 			<h2 class="h3 mb-3 fw-bold bg-secondary bg-opacity-10 py-2 px-4">
-				クラス情報変更
+				クラス情報登録
 			</h2>
 			
 			<p class="text-center py-1"
 			   style="background-color:#66CC99; margin-bottom:130px">
-				変更が完了しました
+				登録が完了しました
 			</p>
 			
 			<div class="mx-3">
