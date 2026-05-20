@@ -26,23 +26,29 @@ public class ClassPromoteAction extends Action {
 		String classNum = req.getParameter("class_num");
 		// Dao
 		ClassNumDao cDao = new ClassNumDao();
+		
 		// クラス一覧取得
 		List<String> classNums = cDao.filter(teacher.getSchool());
-		
 		// 次年度クラス一覧
 		List<String> promoteClassNums = new ArrayList<>();
 		// 現在年次取得
 		int currentGrade = Integer.parseInt(classNum.substring(0, 1));
-		
-		// 次年次
+		// 次学年
 		int nextGrade = currentGrade + 1;
 		
-		// 次年度クラスのみ取得
 		for (String cn : classNums) {
+			
+			// 現在クラスの後半抽出
+			String currentSuffix = classNum.substring(1);
+		
+			// 候補クラスの後半抽出
+			String nextSuffix = cn.substring(1);
+			
+			// 候補クラスの学年
 			int grade = Integer.parseInt(cn.substring(0, 1));
 			
-			// 次年度のみ
-			if (grade == nextGrade) {
+			// 学年＋クラス番号一致
+			if (grade == nextGrade  && currentSuffix.equals(nextSuffix)) {
 				promoteClassNums.add(cn);
 			}
 		}
