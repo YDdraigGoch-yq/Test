@@ -59,7 +59,9 @@
 						<input class="form-control"
 							   type="text"
 							   name="name"
-							   value="${student.name}">
+							   placeholder="氏名を入力してください"
+							   value="${student.name}"
+							   required>
 							
 					</div>
 					
