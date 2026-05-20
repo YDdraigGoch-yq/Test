@@ -1,4 +1,4 @@
-<%-- 学生情報登録 --%>
+<%-- 学生情報変更 --%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core"%>
 
