@@ -14,7 +14,7 @@
 		<section class="me-4">
 		
 			<h2 class="h3 mb-3 fw-bold bg-secondary bg-opacity-10 py-2 px-4">
-				学生クラス変更
+				クラス変更
 			</h2>
 			
 			<p class="text-center py-1"
