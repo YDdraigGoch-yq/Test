@@ -12,32 +12,77 @@ public class SubjectDeleteExecuteAction extends Action {
 
 	@Override
 	public void execute(
-		HttpServletRequest req, HttpServletResponse res
+		HttpServletRequest req,
+		HttpServletResponse res
 	) throws Exception {
-		
-		// ロカール変数の宣言
+
 		String url = "";
-		// セッション取得
+
 		HttpSession session = req.getSession();
-		// ログインユーザー取得
-		Teacher teacher = (Teacher)session.getAttribute("user");
-		
-		// パラメーター取得
-		String cd = req.getParameter("cd");
-		
-		// 科目インスタンス生成
-		Subject subject = new Subject();
-		subject.setCd(cd);
-		subject.setSchool(teacher.getSchool());
-		
-		// Dao
-		SubjectDao suDao = new SubjectDao();
-		// DBから削除
-		suDao.delete(subject);
-		
-		// 科目情報削除完了画面へ
-		url = "subject_delete_done.jsp";
+
+		Teacher teacher =
+			(Teacher)session.getAttribute("user");
+
+		Subject subject = null;
+
+		try {
+
+			String cd =
+				req.getParameter("cd");
+
+			SubjectDao suDao =
+				new SubjectDao();
+
+			// DBから元データ取得
+			subject =
+				suDao.get(
+					cd,
+					teacher.getSchool()
+				);
+
+			boolean result =
+				suDao.delete(subject);
+
+			if(result){
+
+				url =
+					"subject_delete_done.jsp";
+
+			}else{
+
+				req.setAttribute(
+					"error",
+					"科目を削除できませんでした。"
+				);
+
+				req.setAttribute(
+					"subject",
+					subject
+				);
+
+				url =
+					"subject_delete.jsp";
+			}
+
+		}catch(Exception e){
+
+			req.setAttribute(
+				"error",
+				"この科目は成績情報で使用されているため削除できません。"
+			);
+
+			req.setAttribute(
+				"subject",
+				subject
+			);
+
+			url =
+				"subject_delete.jsp";
+
+			e.printStackTrace();
+		}
+
 		req.getRequestDispatcher(url)
-			.forward(req, res);
+			.forward(req,res);
 	}
 }
