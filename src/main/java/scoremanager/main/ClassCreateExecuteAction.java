@@ -72,9 +72,8 @@ public class ClassCreateExecuteAction extends Action {
 			return;
 		}
 		
-		// Bean
+		// クラス番号インスタンス生成
 		ClassNum classNum = new ClassNum();
-		
 		classNum.setClass_num(class_num);
 		classNum.setSchool(teacher.getSchool());
 		
