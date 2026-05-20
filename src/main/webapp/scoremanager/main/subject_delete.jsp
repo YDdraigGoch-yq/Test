@@ -18,10 +18,15 @@
 			</h2>
 			
 			<div class="mx-3">
+			
 				<p style="margin-top:35px">
 					「${subject.name}」を削除してよろしいですか？
 				</p>
-				
+				<c:if test="${not empty error}">
+					<div class="alert alert-danger mb-3 d-inline-block">
+						${error}
+					</div>
+				</c:if>
 				<%-- フォーム --%>
 				<form action="SubjectDeleteExecute.action" method="post">
 					<input type="hidden" name="cd" value="${subject.cd}">
