@@ -1,62 +1,62 @@
 package bean;
 
 import java.io.Serializable;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
-public class TestListSubject implements Serializable {
+public class Test implements Serializable{
 
-	private int entYear;
-	private String studentNo;
-	private String studentName;
+	private Student student;
 	private String classNum;
-	private Map<Integer, Integer> points = new LinkedHashMap<>();
+	private Subject subject;
+	private School school;
+	private int no;
+	private int point;
 	
-// ゲッター(Getter)とセッター(Setter)の設置
-	public int getEntYear() {
-		return entYear;
+	public Student getStudent() {
+		return student;
 	}
-	public String getStudentNo() {
-		return studentNo;
+	
+	public void setStudent(Student student) {
+		this.student = student;
 	}
-	public String getStudentName() {
-		return studentName;
-	}
+	
 	public String getClassNum() {
 		return classNum;
 	}
-	public Map<Integer, Integer> getPoints() {
-		return points;
-	}
-
 	
-	public void setEntYear(int entYear) {
-		this.entYear = entYear;
-	}
-	public void setStudentNo(String studentNo) {
-		this.studentNo = studentNo;
-	}
-	public void setStudentName(String studentName) {
-		this.studentName = studentName;
-	}
 	public void setClassNum(String classNum) {
 		this.classNum = classNum;
 	}
-	public void setPoints(Map<Integer, Integer> points) {
-		this.points = points;
+	
+	public Subject getSubject() {
+		return subject;
 	}
-
-	/**
-	 * 指定回数の点数をセット
-	 */
-	public void putPoint(int key, int value) {
-		this.points.put(key, value);
+	
+	public void setSubject(Subject subject) {
+		this.subject = subject;
 	}
-
-	/**
-	 * 指定回数の点数を取得
-	 */
-	public Integer getPoint(int key) {
-		return this.points.get(key);
+	
+	public School getSchool() {
+		return school;
 	}
+	
+	public void setSchool(School school) {
+		this.school = school;
+	}
+	
+	public int getNo() {
+		return no;
+	}
+	
+	public void setNo(int no) {
+		this.no = no;
+	}
+	
+	public int getPoint() {
+		return point;
+	}
+	
+	public void setPoint(int point) {
+		this.point = point;
+	}
+	
 }
