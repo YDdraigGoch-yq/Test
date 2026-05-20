@@ -49,9 +49,11 @@
 									</a>
 								</td>
 								<td>
-									<a href="ClassPromote.action?class_num=${cn}">
-										変更
-									</a>
+									<c:if test="${!cn.startsWith('3')}">
+										<a href="ClassPromote.action?class_num=${cn}">
+											変更
+										</a>
+									</c:if>
 								</td>
 								<td>
 									<a href="ClassDelete.action?class_num=${cn}"
