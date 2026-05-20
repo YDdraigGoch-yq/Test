@@ -32,6 +32,11 @@
 							   name="cd" 
 							   value="${subject.cd}"
 							   readonly>
+						   
+						<%-- 2026/05/20 変更理由: 科目変更中に対象科目が削除された場合、設計書通りのエラーを表示するため。 --%>
+						<div class="text-warning mt-2">
+							${errors.get("cd")}
+						</div>
 					</div>
 					
 					<%-- 科目名 --%>
@@ -45,7 +50,7 @@
 							   name="name"  
 							   value="${subject.name}"
 							   required>
-							   
+						   
 						<%-- 科目名のエラーメッセージ --%>
 						<div class="text-warning mt-2">
 							${errors.get("name")}
