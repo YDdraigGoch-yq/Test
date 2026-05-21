@@ -159,12 +159,10 @@
 											<input type="hidden" name="class_num" value="${test.classNum}">
 											
 											<input
-												type="number"
-												class="form-control form-control-sm test-regist-point-input"
-												name="point"
-												min="0"
-												max="100"
-												value="${test.point == -1 ? '' : test.point}">
+											    type="text"
+											    class="form-control form-control-sm test-regist-point-input"
+											    name="point"
+											    value="${test.point == -1 ? '' : test.point}">
 												
 											<c:if test="${not empty point_errors[test.student.no]}">
 												<div class="text-warning mt-1">
