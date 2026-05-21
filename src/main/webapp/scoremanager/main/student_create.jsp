@@ -55,31 +55,33 @@
 					
 					<%-- 学生番号 --%>
 					<div class="mb-3">
-						<label class="form-label">
-							学生番号
-						</label>
-						<input class="form-control"
-							   type="text"
-							   name="no"
-							   placeholder="学生番号を入力してください"
-							   required>
-							   
-						<%-- 学生番号のエラーメッセージ --%>
-						<div class="text-warning mt-2">
-							${errors.get("no")}
-						</div>
+					    <label class="form-label">
+					        学生番号
+					    </label>
+					    <input class="form-control"
+					           type="text"
+					           name="no"
+					           placeholder="学生番号を入力してください"
+					           value="${no}"
+					           required>
+					
+					    <%-- 学生番号のエラーメッセージ --%>
+					    <div class="text-warning mt-2">
+					        ${errors.get("no")}
+					    </div>
 					</div>
 					
 					<%-- 氏名 --%>
 					<div class="mb-3">
-						<label class="form-label">
-							氏名
-						</label>
-						<input class="form-control"
-							   type="text"
-							   name="name"
-							   placeholder="氏名を入力してください"
-							   required>
+					    <label class="form-label">
+					        氏名
+					    </label>
+					    <input class="form-control"
+					           type="text"
+					           name="name"
+					           placeholder="氏名を入力してください"
+					           value="${name}"
+					           required>
 					</div>
 					
 					<!-- クラス -->
