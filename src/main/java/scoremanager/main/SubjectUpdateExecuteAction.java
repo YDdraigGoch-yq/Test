@@ -30,26 +30,22 @@ public class SubjectUpdateExecuteAction extends Action {
 		String name = req.getParameter("name");
 		// エラーはHashMapに格納
 		Map<String, String> errors = new HashMap<>();
-		
-		// 科目インスタンス生成
-		Subject subject = new Subject();
-		subject.setCd(cd);
-		subject.setName(name);
-		subject.setSchool(teacher.getSchool());
-		
+
 		// Dao
 		SubjectDao suDao = new SubjectDao();
-		
+
 		// 2026/05/20 変更理由: 科目変更中に別画面で削除された場合、再登録せず設計書通りエラー表示に戻すため。
 		if (suDao.get(cd, teacher.getSchool()) == null) {
-			errors.put("cd", "科目が存在していません");
+			errors.put(
+				"cd",
+				"科目が存在していません"
+			);
 		}
 		
 		// エラーがある場合
 		if (!errors.isEmpty()) {
 			req.setAttribute("subject", subject);
 			req.setAttribute("errors", errors);
-			
 			
 			// 科目情報変更画面へ
 			url = "subject_update.jsp";
@@ -58,6 +54,12 @@ public class SubjectUpdateExecuteAction extends Action {
 			
 			return;
 		}
+
+		// 科目インスタンス生成
+		Subject subject = new Subject();
+		subject.setCd(cd);
+		subject.setName(name);
+		subject.setSchool(teacher.getSchool());
 		
 		// DBに保存
 		suDao.save(subject);
